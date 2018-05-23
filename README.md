@@ -1,0 +1,1 @@
+# britecore-mock-project
