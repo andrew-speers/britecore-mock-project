@@ -2,7 +2,7 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep
 
-PORT_NUMBER = 80
+PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
 
