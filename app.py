@@ -1,11 +1,12 @@
 #!/usr/bin/python
 from http.server import BaseHTTPRequestHandler,HTTPServer
-from os import curdir,sep
+from os import curdir,sep,environ
 import psycopg2
-'''
+
 try:
-    connect_str = "dbname='earnest-vent-205713:northamerica-northeast1:d6539' user='postgres' host='35.203.43.129' " + \
-                  "port='3306' password='AswuEGlq7AN57Lyl'"
+    connect_str = "dbname='d6539' user='" + environ['DB_USER'] + \
+                "' host='127.0.0.1' port='5432' password='" + \
+                environ['DB_PASSWORD'] + "'"
     # use our connection values to establish a connection
     conn = psycopg2.connect(connect_str)
     # create a psycopg2 cursor that can execute queries
@@ -17,7 +18,7 @@ try:
 except Exception as e:
     print("Uh oh, can't connect. Invalid dbname, user or password?")
     print(e)
-'''
+
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
