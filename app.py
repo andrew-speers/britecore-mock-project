@@ -3,8 +3,10 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 import psycopg2
 
+print('Hello')
+
 try:
-    connect_str = "dbname='earnest-vent-205713:northamerica-northeast1:d6539' user='" + environ['DB_USER'] + \
+    connect_str = "dbname='d6539' user='" + environ['DB_USER'] + \
                 "' host='127.0.0.1' port='5432' password='" + \
                 environ['DB_PASSWORD'] + "'"
     # use our connection values to establish a connection
