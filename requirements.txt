@@ -1,2 +1,2 @@
 #Fill in dependencies here
-psycopg2-binary>2.8
+psycopg2-binary==2.7.4

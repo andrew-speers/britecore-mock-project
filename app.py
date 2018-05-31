@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep
+import psycopg2
 
 PORT_NUMBER = 8080
 
@@ -11,7 +12,7 @@ class myHandler(BaseHTTPRequestHandler):
 		self.send_response(200)
 		self.send_header('Content-type','image/png')
 		self.end_headers()
-		f = open(curdir + sep + 'logox.png')
+		f = open(curdir + sep + 'logo.png')
 		self.wfile.write(f.read())
 		return
 
