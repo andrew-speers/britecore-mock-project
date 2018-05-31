@@ -21,17 +21,6 @@ spec:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-          - name: DB_USER
-            valueFrom:
-              secretKeyRef:
-                name: cloudsql-db-credentials
-                key: username
-          - name: DB_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: cloudsql-db-credentials
-                key: password
         ports:
         - containerPort: {{ .Values.service.internalPort }}
         resources:
