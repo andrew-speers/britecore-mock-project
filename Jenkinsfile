@@ -20,6 +20,8 @@ pipeline {
         steps {
           container('python') {
             sh "python -m unittest"
+              
+            sh 'python -c "from psycopg2 import tests; tests.unittest.main(defaultTest=\'tests.test_suite\')" --verbose'
 
             sh 'export VERSION=$PREVIEW_VERSION && skaffold run -f skaffold.yaml'
 
@@ -57,7 +59,6 @@ pipeline {
           container('python') {
             sh "python -m unittest"
               
-            sh 'python -c "from psycopg2 import tests; tests.unittest.main(defaultTest='tests.test_suite')" --verbose'
 
             sh 'export VERSION=`cat VERSION` && skaffold run -f skaffold.yaml'
             sh "jx step validate --min-jx-version 1.2.36"
