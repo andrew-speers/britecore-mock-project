@@ -6,9 +6,10 @@ import psycopg2
 log = open('/var/log/test.log', 'w')
 
 log.write("Restarting...")
+log.write(environ['DB_USER'])
 try:
     conn = psycopg2.connect(
-        database='d6539',
+        database='earnest-vent-205713:northamerica-northeast1:d6539',
         user=environ['DB_USER'],
         password=environ['DB_PASSWORD'],
         host='127.0.0.1',
