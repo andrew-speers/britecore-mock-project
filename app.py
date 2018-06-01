@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 import psycopg2
 
-log = open('/var/log/test.log', 'x')
+log = open('/var/log/test.log', 'a')
 
 try:
     connect_str = "dbname='d6539' user='" + environ['DB_USER'] + \
