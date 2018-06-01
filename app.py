@@ -12,7 +12,7 @@ try:
         #database='earnest-vent-205713:northamerica-northeast1:d6539',
         user=environ['DB_USER'],
         password=environ['DB_PASSWORD'],
-        host='127.0.0.1',
+        host='localhost',
         port='5432'
     )
     #connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
