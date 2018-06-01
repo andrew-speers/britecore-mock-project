@@ -19,7 +19,7 @@ try:
     log.write(rows)
 except Exception as e:
     log.write("Uh oh, can't connect. Invalid dbname, user or password?")
-    log.write(e)
+    log.write(str(e))
 
 log.close()
 
