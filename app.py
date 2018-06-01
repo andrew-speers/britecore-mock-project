@@ -3,7 +3,7 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 import psycopg2
 
-print('Hello')
+log = open('/var/log/test.log', 'x')
 
 try:
     connect_str = "dbname='d6539' user='" + environ['DB_USER'] + \
@@ -16,10 +16,10 @@ try:
     # run a SELECT statement - no data in there, but we can try it
     cursor.execute("""SELECT * from requests""")
     rows = cursor.fetchall()
-    print(rows)
+    log.write(rows)
 except Exception as e:
-    print("Uh oh, can't connect. Invalid dbname, user or password?")
-    print(e)
+    log.write("Uh oh, can't connect. Invalid dbname, user or password?")
+    log.write(e)
 
 PORT_NUMBER = 8080
 
@@ -36,7 +36,8 @@ class myHandler(BaseHTTPRequestHandler):
 
 try:
 	server = HTTPServer(('', PORT_NUMBER), myHandler)
-	print('Started httpserver on port ' , PORT_NUMBER)
+	log.write('Started httpserver on port ' , PORT_NUMBER)
+        log.close()
 	server.serve_forever()
 
 except KeyboardInterrupt:

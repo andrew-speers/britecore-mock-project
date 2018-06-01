@@ -21,10 +21,21 @@ spec:
         - name: cloudsql-instance-credentials
           secret:
             secretName: cloudsql-instance-credentials
+        - name: varlog
+          emptyDir: {}
       containers:
+      - name: friend
+        image: busybox
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
+
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+        volumeMounts:
+          - name: varlog
+            mountPath: /var/log
         env:
           - name: DB_USER
             valueFrom:
@@ -36,6 +47,7 @@ spec:
               secretKeyRef:
                 name: cloudsql-db-credentials
                 key: password
+
       - name: cloudsql-proxy
         image: gcr.io/cloudsql-docker/gce-proxy:1.11
         command: ["/cloud_sql_proxy",
