@@ -6,7 +6,7 @@ import psycopg2
 log = open('/var/log/test.log', 'a')
 
 try:
-    connect_str = "dbname='d6539' user='" + environ['DB_USER'] + \
+    connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
                 "' host='127.0.0.1' port='5432' password='" + \
                 environ['DB_PASSWORD'] + "'"
     # use our connection values to establish a connection
