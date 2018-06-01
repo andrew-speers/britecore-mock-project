@@ -6,13 +6,19 @@ import psycopg2
 log = open('/var/log/test.log', 'w')
 
 log.write("Restarting...")
-
 try:
-    connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
-                "' host='127.0.0.1' port='5432' password='" + \
-                environ['DB_PASSWORD'] + "'"
+    conn = psycopg2.connect(
+        database='postgres',
+        user=environ['DB_USER'],
+        password=environ['DB_PASSWORD'],
+        host='127.0.0.1',
+        port='5432'
+    )
+    #connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
+        #                       "' host='127.0.0.1' port='5432' password='" + \
+        #                       environ['DB_PASSWORD'] + "'"
     # use our connection values to establish a connection
-    conn = psycopg2.connect(connect_str)
+    #conn = psycopg2.connect(connect_str)
     # create a psycopg2 cursor that can execute queries
     cursor = conn.cursor()
     # run a SELECT statement - no data in there, but we can try it
