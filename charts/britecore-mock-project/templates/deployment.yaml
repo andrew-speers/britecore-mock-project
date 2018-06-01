@@ -27,13 +27,12 @@ spec:
 
       - name: friend
         image: busybox
-        args:
-        - /bin/sh
+        args: [/bin/sh, -c, 'tail -n+1 -f /var/log/test.log']
         volumeMounts:
           - name: varlog
             mountPath: /var/log
 
-      - name: {{ .Chart.Name }}
+      - name: app
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         volumeMounts:
