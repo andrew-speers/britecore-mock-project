@@ -24,8 +24,11 @@ spec:
         - name: varlog
           emptyDir: {}
       containers:
+
       - name: friend
         image: busybox
+        args:
+        - /bin/sh
         volumeMounts:
           - name: varlog
             mountPath: /var/log
