@@ -8,7 +8,7 @@ log = open('/var/log/test.log', 'w')
 log.write("Restarting...")
 try:
     conn = psycopg2.connect(
-        database='postgres',
+        database='d6539',
         user=environ['DB_USER'],
         password=environ['DB_PASSWORD'],
         host='127.0.0.1',
@@ -26,7 +26,6 @@ try:
     rows = cursor.fetchall()
     log.write(rows)
 except Exception as e:
-    log.write("Uh oh, can't connect. Invalid dbname, user or password?")
     log.write(str(e))
 
 log.close()
