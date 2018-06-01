@@ -21,6 +21,8 @@ except Exception as e:
     log.write("Uh oh, can't connect. Invalid dbname, user or password?")
     log.write(e)
 
+log.close()
+
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
@@ -36,8 +38,7 @@ class myHandler(BaseHTTPRequestHandler):
 
 try:
 	server = HTTPServer(('', PORT_NUMBER), myHandler)
-	log.write('Started httpserver on port ' , PORT_NUMBER)
-        log.close()
+	print('Started httpserver on port ' , PORT_NUMBER)
 	server.serve_forever()
 
 except KeyboardInterrupt:
