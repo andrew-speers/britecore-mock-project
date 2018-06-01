@@ -3,7 +3,9 @@ from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 import psycopg2
 
-log = open('/var/log/test.log', 'a')
+log = open('/var/log/test.log', 'w')
+
+log.write("Restarting...")
 
 try:
     connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
