@@ -8,7 +8,7 @@ log = open('/var/log/test.log', 'w')
 log.write("Restarting...")
 try:
     conn = psycopg2.connect(
-        database='postgres'
+        database='postgres',
         user=environ['DB_USER'],
         password=environ['DB_PASSWORD'],
         host='localhost',
