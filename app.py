@@ -2,6 +2,9 @@
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 import psycopg2
+import time
+
+time.sleep(60)
 
 log = open('/var/log/test.log', 'w')
 
