@@ -1,7 +1,8 @@
 #!/usr/bin/python
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
-import psycopg2
+#import psycopg2
+from sqlalchemy import create_engine
 import time
 
 time.sleep(60)
@@ -10,6 +11,9 @@ log = open('/var/log/test.log', 'w')
 
 log.write("Restarting...")
 try:
+    engine = create_engine('postgres://' + environ['DB_USER'] + ':' + environ['DB_PASSWORD'] + '@localhost:5432/postgres')
+
+    '''
     conn = psycopg2.connect(
         database='postgres',
         user=environ['DB_USER'],
@@ -17,17 +21,14 @@ try:
         host='localhost',
         port='5432'
     )
-    #connect_str = "dbname='postgres' user='" + environ['DB_USER'] + \
-        #                       "' host='127.0.0.1' port='5432' password='" + \
-        #                       environ['DB_PASSWORD'] + "'"
-    # use our connection values to establish a connection
-    #conn = psycopg2.connect(connect_str)
-    # create a psycopg2 cursor that can execute queries
+
     cursor = conn.cursor()
     # run a SELECT statement - no data in there, but we can try it
     cursor.execute("""SELECT * from requests""")
     rows = cursor.fetchall()
     log.write(rows)
+    '''
+
 except Exception as e:
     log.write(str(e))
 
