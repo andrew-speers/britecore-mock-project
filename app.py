@@ -1,37 +1,40 @@
 #!/usr/bin/python
 from http.server import BaseHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
-#import psycopg2
 from sqlalchemy import create_engine
+from sqlalchemy import Column, String, Integer, Date
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 import time
 
 time.sleep(60)
 
 log = open('/var/log/test.log', 'w')
 
-log.write("Restarting...")
-try:
-    engine = create_engine('postgres://' + environ['DB_USER'] + ':' + environ['DB_PASSWORD'] + '@localhost:5432/postgres')
+log.write("Restarting...\n")
+engine = create_engine('postgres://' + environ['DB_USER'] + \
+                       ':' + environ['DB_PASSWORD'] + '@localhost:5432/postgres')
+base = declarative_base()
 
-    '''
-    conn = psycopg2.connect(
-        database='postgres',
-        user=environ['DB_USER'],
-        password=environ['DB_PASSWORD'],
-        host='localhost',
-        port='5432'
-    )
+class Request(base):
+    __tablename__ = 'requests'
 
-    cursor = conn.cursor()
-    # run a SELECT statement - no data in there, but we can try it
-    cursor.execute("""SELECT * from requests""")
-    rows = cursor.fetchall()
-    log.write(rows)
-    '''
+    id = Column(Integer, primary_key=True)
+    Title = Column(String)
+    Description  = Column(String)
+    Client = Column(String)
+    Priority = Column(Integer)
+    Target_Date = Column(Date)
+    Product_Area = column(String)
 
-except Exception as e:
-    log.write(str(e))
+Session = sessionmaker(engine)
+session = Session()
 
+reqs = session.query(Request)
+for req in reqs:
+    log.write(req.Title + '\n')
+
+log.write('Backend OK.\n')
 log.close()
 
 PORT_NUMBER = 8080
