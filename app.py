@@ -25,7 +25,7 @@ class Request(base):
     Client = Column(String)
     Priority = Column(Integer)
     Target_Date = Column(Date)
-    Product_Area = column(String)
+    Product_Area = Column(String)
 
 Session = sessionmaker(engine)
 session = Session()
