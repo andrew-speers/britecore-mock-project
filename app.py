@@ -54,7 +54,6 @@ class myHandler(SimpleHTTPRequestHandler):
 
 
     def do_GET(self):
-        #write_log('GET\n')
         log = open('/var/log/test.log', 'a')
         log.write('GET\n')
         self.send_response(200)
@@ -62,8 +61,7 @@ class myHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         log.write('Finished with headers\n')
         #f = open(curdir + sep + 'logo.png')
-        self.wfile.write("<strong>Geoffrey</strong>")
-        #write_log('Almost done with GET\n')
+        self.wfile.write(bytes("<strong>Geoffrey</strong>", "utf-8"))
         log.write('Done.\n')
         log.close()
         return
