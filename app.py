@@ -84,7 +84,10 @@ def write_log(arg):
     log.write(arg)
     log.close()
 
-server = HTTPServer(('', PORT_NUMBER), myHandler)
-log.write('Started server on port 8080\n')
-log.close()
-server.serve_forever()
+try:
+    server = HTTPServer(('', PORT_NUMBER), myHandler)
+    log.write('Started server on port 8080\n')
+    log.close()
+    server.serve_forever()
+except:
+    write_log('Error\n')
