@@ -35,25 +35,31 @@ for req in reqs:
     log.write(req.Title + '\n')
 
 log.write('Backend OK.\n')
-log.close()
 
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
 
-	#Handler for the GET requests
-	def do_GET(self):
-		self.send_response(200)
-		self.send_header('Content-type','image/png')
-		self.end_headers()
-		f = open(curdir + sep + 'logo.png')
-		self.wfile.write(f.read())
-		return
+    def do_GET(self):
+	self.send_response(200)
+	self.send_header('Content-type','image/png')
+	self.end_headers()
+	f = open(curdir + sep + 'logo.png')
+	self.wfile.write(f.read())
+	return
+
+    def do_POST(self):
+        length = int(self.headers['Content-Length'])
+        post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
+        log.write(post_data);
+        # You now have a dictionary of the post data
+
+        self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
 try:
-	server = HTTPServer(('', PORT_NUMBER), myHandler)
-	print('Started httpserver on port ' , PORT_NUMBER)
-	server.serve_forever()
-
+    server = HTTPServer(('', PORT_NUMBER), myHandler)
+    log.write('Started server on port ', PORT_NUMBER)
+    log.close()
+    server.serve_forever()
 except KeyboardInterrupt:
-	server.socket.close()
+    server.socket.close()
