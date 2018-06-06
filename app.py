@@ -51,6 +51,7 @@ class myHandler(SimpleHTTPRequestHandler):
         #self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
+        self.end_headers()
 
     def do_GET(self):
         self.send_response(200)
