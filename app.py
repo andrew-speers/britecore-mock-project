@@ -40,20 +40,20 @@ PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
 
+
     def do_GET(self):
-	self.send_response(200)
-	self.send_header('Content-type','image/png')
-	self.end_headers()
-	f = open(curdir + sep + 'logo.png')
-	self.wfile.write(f.read())
-	return
+        self.send_response(200)
+        self.send_header('Content-type','image/png')
+        self.end_headers()
+        f = open(curdir + sep + 'logo.png')
+        self.wfile.write(f.read())
+        return
 
     def do_POST(self):
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
         log.write(post_data);
         # You now have a dictionary of the post data
-
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
 try:
