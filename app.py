@@ -66,7 +66,7 @@ class myHandler(SimpleHTTPRequestHandler):
         log = open('var/log/test.log', 'a')
         log.write('POST\n')
         self.send_response(200)
-        self.send_header('Content-type','text/html')
+        self.send_header('Content-type','application/json')
         self.end_headers()
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
