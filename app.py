@@ -5,6 +5,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import Column, String, Integer, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from urllib.parse import parse_qs
 import time
 
 time.sleep(60)
@@ -66,10 +67,10 @@ class myHandler(SimpleHTTPRequestHandler):
         log = open('/var/log/test.log', 'a')
         log.write('POST\n')
         self.send_response(200)
-        self.send_header('Content-type','application/json')
+        self.send_header('Content-type','text/html')
         self.end_headers()
         length = int(self.headers['Content-Length'])
-        post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
+        post_data = parse_qs(self.rfile.read(length).decode('utf-8'))
         log.write(post_data + '\n')
         log.close()
         # You now have a dictionary of the post data
