@@ -39,13 +39,19 @@ log.write('Backend OK.\n')
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
+
+    def options(self, *args, **kwargs):
+        self.response.headers['Access-Control-Allow-Origin'] = '*'
+        self.response.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+        self.response.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE'
+    '''
     def do_OPTIONS(self):
         self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
-
+    '''
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type','image/png')
