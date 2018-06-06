@@ -1,0 +1,5 @@
++ make tag
+sed -i -e "s/version:.*/version: 0.0.54/" Chart.yaml
+sed -i -e "s/repository: .*/repository: 10.15.243.132:5000\/andrew-speers\/britecore-mock-project/" values.yaml
+sed -i -e "s/tag: .*/tag: 0.0.54/" values.yaml
+git add --all
