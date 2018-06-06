@@ -45,13 +45,13 @@ class myHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_OPTIONS(self):
-        #log.write('OPTIONS\n')
+        self.send_response(200, "ok")
         write_log('OPTIONS\n')
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
         self.end_headers()
-        self.send_response(200, "ok")
+
 
     def do_GET(self):
         self.send_response(200)
@@ -64,6 +64,9 @@ class myHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         #log.write('POST\n')
         write_log('POST\n')
+        self.send_response(200)
+        self.send_header('Content-type','application/json')
+        self.end_headers()
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
         log.write(post_data)
@@ -71,13 +74,13 @@ class myHandler(SimpleHTTPRequestHandler):
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
 def write_log(arg):
-    log = open('/var/log/test.log', 'w')
+    log = open('/var/log/test.log', 'a')
     log.write(arg)
     log.close()
 
 try:
     server = HTTPServer(('', PORT_NUMBER), myHandler)
-    log.write('Started server on port 8080')
+    log.write('Started server on port 8080\n')
     log.close()
     server.serve_forever()
 except KeyboardInterrupt:
