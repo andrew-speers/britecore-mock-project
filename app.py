@@ -54,28 +54,27 @@ class myHandler(SimpleHTTPRequestHandler):
 
 
     def do_GET(self):
-        log = open('/var/log/test.log', 'a')
-        log.write('GET\n')
+        write_log('GET\n')
         self.send_response(200)
         self.send_header('Content-type','text/html')
         self.end_headers()
-        log.write('Finished with headers\n')
         #f = open(curdir + sep + 'logo.png')
         self.wfile.write(bytes("<strong>Geoffrey</strong>", "utf-8"))
-        log.write('Done.\n')
-        log.close()
         return
 
     def do_POST(self):
-        write_log('POST\n')
+        log = open('var/log/test.log', 'a')
+        log.write('POST\n')
         self.send_response(200)
-        self.send_header('Content-type','application/json')
+        self.send_header('Content-type','text/html')
         self.end_headers()
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
-        write_log(post_data + '\n')
+        log.write(post_data + '\n')
+        log.close()
         # You now have a dictionary of the post data
-        self.wfile.write("Lorem Ipsum".encode("utf-8"))
+        self.wfile.write(bytes("<strong>Post Geoffrey</strong>", "utf-8"))
+        return
 
 def write_log(arg):
     log = open('/var/log/test.log', 'a')
