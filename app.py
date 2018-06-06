@@ -39,7 +39,9 @@ log.write('Backend OK.\n')
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
-
+    def end_headers(self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        BaseHTTPRequestHandler.end_headers(self)
 
     def do_GET(self):
         self.send_response(200)
@@ -52,7 +54,7 @@ class myHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
-        log.write(post_data);
+        log.write(post_data)
         # You now have a dictionary of the post data
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
