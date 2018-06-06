@@ -54,13 +54,18 @@ class myHandler(SimpleHTTPRequestHandler):
 
 
     def do_GET(self):
-        write_log('GET\n')
+        #write_log('GET\n')
+        log = open('/var/log/test.log', 'a')
+        log.write('GET\n')
         self.send_response(200)
         self.send_header('Content-type','text/html')
         self.end_headers()
+        log.write('Finished with headers\n')
         #f = open(curdir + sep + 'logo.png')
         self.wfile.write("<strong>Geoffrey</strong>")
-        write_log('Almost done with GET\n')
+        #write_log('Almost done with GET\n')
+        log.write('Done.\n')
+        log.close()
         return
 
     def do_POST(self):
@@ -79,10 +84,7 @@ def write_log(arg):
     log.write(arg)
     log.close()
 
-try:
-    server = HTTPServer(('', PORT_NUMBER), myHandler)
-    log.write('Started server on port 8080\n')
-    log.close()
-    server.serve_forever()
-except KeyboardInterrupt:
-    server.socket.close()
+server = HTTPServer(('', PORT_NUMBER), myHandler)
+log.write('Started server on port 8080\n')
+log.close()
+server.serve_forever()
