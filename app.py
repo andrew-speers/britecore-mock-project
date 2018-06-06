@@ -68,10 +68,15 @@ class myHandler(SimpleHTTPRequestHandler):
         # You now have a dictionary of the post data
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
+def write_log(arg):
+    log = open('/var/log/test.log', 'w')
+    log.write(arg)
+    log.close()
+
 try:
     server = HTTPServer(('', PORT_NUMBER), myHandler)
     log.write('Started server on port 8080')
+    log.close()
     server.serve_forever()
 except KeyboardInterrupt:
     server.socket.close()
-log.close()
