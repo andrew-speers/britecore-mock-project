@@ -1,5 +1,5 @@
 #!/usr/bin/python
-from http.server import BaseHTTPRequestHandler,HTTPServer
+from http.server import SimpleHTTPRequestHandler,HTTPServer
 from os import curdir,sep,environ
 from sqlalchemy import create_engine
 from sqlalchemy import Column, String, Integer, Date
@@ -38,8 +38,12 @@ log.write('Backend OK.\n')
 
 PORT_NUMBER = 8080
 
-class myHandler(BaseHTTPRequestHandler):
+class myHandler(SimpleHTTPRequestHandler):
 
+    def end_headers (self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        SimpleHTTPRequestHandler.end_headers(self)
+    '''
     def do_OPTIONS(self):
         log.write('hello\n')
         self.send_response(200, "ok")
@@ -47,7 +51,7 @@ class myHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
-
+    '''
     def do_GET(self):
         self.send_response(200)
         self.send_header('Content-type','image/png')
