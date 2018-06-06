@@ -45,7 +45,8 @@ class myHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_OPTIONS(self):
-        log.write('OPTIONS\n')
+        #log.write('OPTIONS\n')
+        write_log('OPTIONS\n')
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
@@ -61,7 +62,8 @@ class myHandler(SimpleHTTPRequestHandler):
         return
 
     def do_POST(self):
-        log.write('POST\n')
+        #log.write('POST\n')
+        write_log('POST\n')
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
         log.write(post_data)
