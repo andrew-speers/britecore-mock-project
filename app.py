@@ -60,6 +60,7 @@ class myHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         #f = open(curdir + sep + 'logo.png')
         self.wfile.write("<strong>Geoffrey</strong>")
+        write_log('Almost done with GET\n')
         return
 
     def do_POST(self):
@@ -69,7 +70,7 @@ class myHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
-        #write_log(post_data + '\n')
+        write_log(post_data + '\n')
         # You now have a dictionary of the post data
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
