@@ -39,9 +39,12 @@ log.write('Backend OK.\n')
 PORT_NUMBER = 8080
 
 class myHandler(BaseHTTPRequestHandler):
-    def end_headers(self):
+    def do_OPTIONS(self):
+        self.send_response(200, "ok")
+        self.send_header('Access-Control-Allow-Credentials', 'true')
         self.send_header('Access-Control-Allow-Origin', '*')
-        BaseHTTPRequestHandler.end_headers(self)
+        self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+        self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
 
     def do_GET(self):
         self.send_response(200)
