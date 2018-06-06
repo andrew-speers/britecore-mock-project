@@ -45,13 +45,12 @@ class myHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_OPTIONS(self):
-        log.write('hello\n')
-        self.send_response(200, "ok")
+        log.write('OPTIONS\n')
         self.send_header('Access-Control-Allow-Credentials', 'true')
-        #self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
         self.end_headers()
+        self.send_response(200, "ok")
 
     def do_GET(self):
         self.send_response(200)
@@ -62,7 +61,7 @@ class myHandler(SimpleHTTPRequestHandler):
         return
 
     def do_POST(self):
-        log.write('post\n')
+        log.write('POST\n')
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
         log.write(post_data)
@@ -72,7 +71,7 @@ class myHandler(SimpleHTTPRequestHandler):
 try:
     server = HTTPServer(('', PORT_NUMBER), myHandler)
     log.write('Started server on port 8080')
-    log.close()
     server.serve_forever()
 except KeyboardInterrupt:
     server.socket.close()
+log.close()
