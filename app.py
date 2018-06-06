@@ -63,7 +63,7 @@ class myHandler(SimpleHTTPRequestHandler):
         return
 
     def do_POST(self):
-        log = open('var/log/test.log', 'a')
+        log = open('/var/log/test.log', 'a')
         log.write('POST\n')
         self.send_response(200)
         self.send_header('Content-type','application/json')
