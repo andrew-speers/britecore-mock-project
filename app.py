@@ -69,9 +69,12 @@ class myHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type','text/html')
         self.end_headers()
-        length = int(self.headers['Content-Length'])
-        post_data = parse_qs(self.rfile.read(length).decode('utf-8'))
-        log.write(post_data + '\n')
+        try:
+            length = int(self.headers['Content-Length'])
+            post_data = parse_qs(self.rfile.read(length).decode('utf-8'))
+            log.write(post_data + '\n')
+        except Exception as e:
+            log.write(str(e))
         log.close()
         # You now have a dictionary of the post data
         self.wfile.write(bytes("<strong>Post Geoffrey</strong>", "utf-8"))
