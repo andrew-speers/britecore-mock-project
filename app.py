@@ -66,7 +66,7 @@ class myHandler(BaseHTTPRequestHandler):
 
 try:
     server = HTTPServer(('', PORT_NUMBER), myHandler)
-    log.write('Started server on port ', PORT_NUMBER)
+    log.write('Started server on port 8080')
     log.close()
     server.serve_forever()
 except KeyboardInterrupt:
