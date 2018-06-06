@@ -45,8 +45,8 @@ class myHandler(SimpleHTTPRequestHandler):
         SimpleHTTPRequestHandler.end_headers(self)
 
     def do_OPTIONS(self):
-        self.send_response(200, "ok")
         write_log('OPTIONS\n')
+        self.send_response(200, "ok")
         self.send_header('Access-Control-Allow-Credentials', 'true')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
         self.send_header("Access-Control-Allow-Headers", "X-Requested-With, Content-type")
@@ -54,22 +54,22 @@ class myHandler(SimpleHTTPRequestHandler):
 
 
     def do_GET(self):
+        write_log('GET\n')
         self.send_response(200)
-        self.send_header('Content-type','image/png')
+        self.send_header('Content-type','text/html')
         self.end_headers()
-        f = open(curdir + sep + 'logo.png')
-        self.wfile.write(f.read())
+        #f = open(curdir + sep + 'logo.png')
+        self.wfile.write("<strong>Geoffrey</strong>")
         return
 
     def do_POST(self):
-        #log.write('POST\n')
         write_log('POST\n')
         self.send_response(200)
         self.send_header('Content-type','application/json')
         self.end_headers()
         length = int(self.headers['Content-Length'])
         post_data = urllib.parse.parse_qs(self.rfile.read(length).decode('utf-8'))
-        log.write(post_data)
+        #write_log(post_data + '\n')
         # You now have a dictionary of the post data
         self.wfile.write("Lorem Ipsum".encode("utf-8"))
 
