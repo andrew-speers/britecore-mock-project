@@ -72,7 +72,7 @@ class myHandler(SimpleHTTPRequestHandler):
         try:
             length = int(self.headers['Content-Length'])
             post_data = parse_qs(self.rfile.read(length).decode('utf-8'))
-            log.write(post_data + '\n')
+            log.write(post_data['title'] + '\n')
         except Exception as e:
             log.write(str(e))
         log.close()
